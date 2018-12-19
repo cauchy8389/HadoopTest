@@ -1,17 +1,16 @@
 package bigdata.utils;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
-import jodd.typeconverter.Convert;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.*;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.hadoop.hbase.util.Bytes;
 
@@ -74,13 +73,22 @@ public class utils {
 		}
 
 		try {
-			Date date = DateUtils.parseDate(slogs[4].substring(1, 21), Locale.US,"dd/MMM/yyyy:HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss",Locale.US);
+			LocalDateTime date = LocalDateTime.parse(slogs[4].substring(1, 21), formatter);
 
-			System.out.println(DateFormatUtils.ISO_DATE_FORMAT.format(date));
+			System.out.println(DateTimeFormatter.ISO_DATE.format(date));
 
-		} catch (ParseException e) {
+			long epochSecond = date.toInstant(ZoneOffset.of("+0800")).getEpochSecond();
+            System.out.println(epochSecond);
+
+            LocalDateTime date2 = LocalDateTime.ofEpochSecond(epochSecond, 0, ZoneOffset.ofHours(8));
+
+            System.out.println(DateTimeFormatter.ISO_DATE_TIME.format(date2));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+        System.out.println(StringUtils.stripEnd("abc333","3"));
 
 	}
 
