@@ -38,7 +38,7 @@ public class ComplaintsMapper extends Mapper<Object, Text, Text, MapWritable> {
             map.put(new Text("product"), getWritableValue(product));
             map.put(new Text("subproduct"), getWritableValue(subproduct));
             map.put(new Text("issue"), getWritableValue(issue));
-            map.put(new Text("issue.raw"), getWritableValue(issue));
+            map.put(new Text("issueRaw"), getWritableValue(issue));
             map.put(new Text("subissue"), getWritableValue(subissue));
             map.put(new Text("state"), getWritableValue(state));
             map.put(new Text("submittedVia"), getWritableValue(submittedVia));
